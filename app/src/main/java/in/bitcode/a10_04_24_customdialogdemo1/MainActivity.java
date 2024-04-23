@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +38,42 @@ public class MainActivity extends AppCompatActivity {
 
     private void initListeners(){
         btnLogoutDialog1.setOnClickListener(new Btn1ClickListener());
+        btnLogoutDialog2.setOnClickListener(new Btn2ClickListener());
+        btnLogoutDialog3.setOnClickListener(new Btn3ClickListener());
     }
 
+    //way 3
+    class Btn3ClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            LogoutDialog logoutDialog1 = new LogoutDialog(MainActivity.this);
+            logoutDialog1.setOnLogoutClickListener(new MyLogoutClickListener());
+            logoutDialog1.show();
+        }
+    }
+
+    class MyLogoutClickListener implements LogoutDialog.OnLogoutClickListener{
+        @Override
+        public void onSuccess() {
+            Toast.makeText(MainActivity.this, "onSuccess",Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onFailure() {
+            Toast.makeText(MainActivity.this,"onFailure",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //way 2
+    class Btn2ClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            LogoutDialog logoutDialog = new LogoutDialog(MainActivity.this);
+            logoutDialog.show();
+        }
+    }
+
+    //way 1
     class Btn1ClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
